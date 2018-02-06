@@ -1,5 +1,32 @@
 body {
   margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  padding: 0;  
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+#dashboard {
+  min-height: 100vh;
+}
+#dashboard .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+#dashboard .trigger:hover {
+  color: #1890ff;
+}
+
+#dashboard .logo {
+  height: 32px;
+  background: rgba(255,255,255,.2);
+  margin: 16px;
+}
+
+li.ant-menu-item {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
 }
