@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Icon, Avatar, Modal, Button, Row, Col } from 'antd';
+import { Card, Modal, Row, Col } from 'antd';
 
 class AppointmentCard extends Component {
     state = {
