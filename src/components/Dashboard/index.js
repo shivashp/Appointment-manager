@@ -1,36 +1,72 @@
 import React, { Component } from 'react';
-// import {
-//   Switch,
-//   Route
-// } from 'react-router-dom';
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
-import { Layout, Menu, Icon } from 'antd';
-const { Header, Content } = Layout;
+import { Menu, Icon, Row, Col, Input } from 'antd';
+import AppointmentCard from './AppointmentCard';
 
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 class Dashboard extends Component {
-  state = {
-    collapsed: false,
-  };
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  }
-  render() {
-    return (
-      <Layout id="dashboard">
-        <Sidebar collapsed={this.state.collapsed} />
-        <Layout>
-          <Navbar collapsed={this.state.collapsed} toggle={this.toggle}/>
-          <Content style={{ margin: '24px 16px', padding: 24}}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum quasi error asperiores impedit dolore dolor, unde quia illum architecto temporibus deleniti assumenda ratione ut esse tempore totam earum possimus doloribus.
-          </Content>
-        </Layout>
-      </Layout>
-    );
-  }
+    state = {
+        current: 'all',
+        data: [],
+        searchText: ''
+    }
+    handleMenuClick = e => this.setState({ current: e.key});
+    handleSearchChange = e => this.setState({searchText: e.target.value});
+    render() {
+        return (
+            <div>
+                <TopBar 
+                    current={this.state.current} 
+                    handleClick={this.handleMenuClick} 
+                    onChange={this.handleSearchChange}
+                />
+                <Row className="content-section" gutter={8}>
+                    {
+                        this.props.data
+                        .filter(info => info.status == this.state.current || this.state.current == 'all')
+                        .filter(info => info.user.toLowerCase().indexOf(this.state.searchText.toLowerCase()) !== -1)
+                        .map((info,i) => <Col span={8} key={i}><AppointmentCard info={info}/></Col>)
+                    }
+                </Row>
+            </div>
+        );
+    }
+}
+
+const TopBar = props => (
+    <div style={{display: 'flex'}}>
+        <Menu
+            onClick={props.handleClick}
+            selectedKeys={[props.current]}
+            mode="horizontal"
+            style={{display: 'flex', flex: 3}}
+        >
+            <Menu.Item key="all">
+                <Icon type="mail" />All Appointments
+            </Menu.Item>
+            <Menu.Item key="active">
+                <Icon type="home" />Active
+            </Menu.Item>
+            <Menu.Item key="pending">
+                <Icon type="user" />Pending
+            </Menu.Item>
+            <Menu.Item key="completed">
+                <Icon type="appstore" />Completed
+            </Menu.Item>
+        </Menu>
+        <Input 
+            className="top-search-box" 
+            style={{display: 'flex', flex: 1}} 
+            suffix={<Icon type="search" style={{ color: 'rgba(0,0,0,.25)' }} />} 
+            placeholder="Search" 
+            onChange={props.onChange}
+        />
+    </div>
+)   
+
+Dashboard.defaultProps = {
+    data: require('./data.json')
 }
 
 export default Dashboard;
