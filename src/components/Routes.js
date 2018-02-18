@@ -3,13 +3,13 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import Main from './Main';
 
 class Routes extends Component {
   render() {
     return (
       <Router>
-        <Route path="/" exact component={Dashboard} />
+        <Route path="/" exact component={Main} />
       </Router>
     );
   }
