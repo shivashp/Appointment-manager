@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-// import {
-//   Switch,
-//   Route
-// } from 'react-router-dom';
+import {
+  Route
+} from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import { Layout, Menu, Icon } from 'antd';
 import Dashboard from '../Dashboard';
+import AddAppointment from '../AddAppointment';
 
 const { Header, Content } = Layout;
 
@@ -22,13 +22,15 @@ class Main extends Component {
     });
   }
   render() {
+    const { match } = this.props;
     return (
       <Layout id="dashboard">
-        <Sidebar collapsed={this.state.collapsed} />
+        <Sidebar collapsed={this.state.collapsed} match={match}/>
         <Layout>
           <Navbar collapsed={this.state.collapsed} toggle={this.toggle}/>
           <Content style={{ margin: '24px 16px', padding: 24}}>
-            <Dashboard />
+            <Route path={`${match.url}`} component={Dashboard} />
+            <Route path={`${match.url}/add-appointment`} component={AddAppointment} />
           </Content>
         </Layout>
       </Layout>

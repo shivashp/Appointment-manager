@@ -4,6 +4,7 @@ const { Sider } = Layout;
 
 class Sidebar extends Component {
   render() {
+    const { match } = this.props;
     return (
       <Sider
           trigger={null}
@@ -13,12 +14,12 @@ class Sidebar extends Component {
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
             <Menu.Item key="1">
-              <Icon type="home" />
-              <span>Dashboard</span>
+                <Icon type="home" />
+                <span>Dashboard</span>
             </Menu.Item>
             <Menu.Item key="2">
-              <Icon type="user" />
-              <span>Users</span>
+                <Icon type="user" />
+                <span>Users</span>
             </Menu.Item>
             <Menu.Item key="3">
               <Icon type="info" />
